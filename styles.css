@@ -392,7 +392,7 @@ input:focus {
 
 table {
   width: 100%;
-  min-width: 1160px;
+  min-width: 1480px;
   border-collapse: collapse;
 }
 
@@ -505,6 +505,32 @@ tr.editing td {
   padding: 0 10px;
   font-weight: 800;
   font-size: 12px;
+}
+
+.governance-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status-approved {
+  background: rgba(63, 138, 90, 0.12);
+  color: #2f7d4a;
+}
+
+.status-in-progress {
+  background: rgba(204, 151, 31, 0.15);
+  color: #9a6b00;
+}
+
+.status-not-started-yet {
+  background: rgba(198, 69, 57, 0.12);
+  color: #b23a2f;
 }
 
 .chart-head {

@@ -1,22 +1,23 @@
 const deals = [
-  { deal: "Retail media expansion", bu: "LMFR", platform: "AMS", stage: "strategy", maturity: "idea", owner: "Commerce", region: "EU", value: 120000 },
-  { deal: "Marketplace analytics", bu: "LMBR", platform: "CCDP", stage: "Discovery", maturity: "poc", owner: "Marketplace", region: "EU", value: 85000 },
-  { deal: "B2B portal renewal", bu: "LMPT", platform: "SCDP", stage: "delivery", maturity: "MVP", owner: "B2B", region: "CIS", value: 210000 },
-  { deal: "Loyalty app", bu: "LMES", platform: "PDP", stage: "Launch", maturity: "scale & industrialisation", owner: "Customer", region: "EU", value: 145000 },
-  { deal: "Supply forecast", bu: "LMPL", platform: "GTDP", stage: "product life", maturity: "run", owner: "Supply", region: "MENA", value: 320000 },
-  { deal: "Partner API", bu: "BMFR", platform: "DP4P", stage: "Discovery", maturity: "poc", owner: "Partners", region: "EU", value: 76000 },
-  { deal: "Store operations", bu: "LMIT", platform: "SDP (AHS)", stage: "delivery", maturity: "MVP", owner: "Store operations", region: "CIS", value: 98000 },
-  { deal: "Customer 360", bu: "LMRO", platform: "Transversal", stage: "Launch", maturity: "scale & industrialisation", owner: "Customer", region: "MENA", value: 185000 },
-  { deal: "Pricing engine", bu: "LMZA", platform: "No platform", stage: "strategy", maturity: "idea", owner: "Pricing", region: "EU", value: 132000 },
-  { deal: "Checkout redesign", bu: "WDFR", platform: "PIDP", stage: "product life", maturity: "run", owner: "Commerce", region: "CIS", value: 265000 },
-  { deal: "Field sales tablet", bu: "BMIT", platform: "HRDP", stage: "Discovery", maturity: "poc", owner: "Sales", region: "EU", value: 54000 },
-  { deal: "Integration hub", bu: "OMPT", platform: "FPDP", stage: "sunset", maturity: "run", owner: "Integration", region: "MENA", value: 228000 },
+  { deal: "Retail media expansion", bu: "LMFR", platform: "AMS", stage: "strategy", maturity: "idea", owner: "Commerce", region: "EU", value: 120000, dpo: "approved", legal: "in progress", secu: "not started yet" },
+  { deal: "Marketplace analytics", bu: "LMBR", platform: "CCDP", stage: "Discovery", maturity: "poc", owner: "Marketplace", region: "EU", value: 85000, dpo: "in progress", legal: "approved", secu: "in progress" },
+  { deal: "B2B portal renewal", bu: "LMPT", platform: "SCDP", stage: "delivery", maturity: "MVP", owner: "B2B", region: "CIS", value: 210000, dpo: "approved", legal: "approved", secu: "approved" },
+  { deal: "Loyalty app", bu: "LMES", platform: "PDP", stage: "Launch", maturity: "scale & industrialisation", owner: "Customer", region: "EU", value: 145000, dpo: "approved", legal: "in progress", secu: "approved" },
+  { deal: "Supply forecast", bu: "LMPL", platform: "GTDP", stage: "product life", maturity: "run", owner: "Supply", region: "MENA", value: 320000, dpo: "in progress", legal: "approved", secu: "approved" },
+  { deal: "Partner API", bu: "BMFR", platform: "DP4P", stage: "Discovery", maturity: "poc", owner: "Partners", region: "EU", value: 76000, dpo: "not started yet", legal: "in progress", secu: "not started yet" },
+  { deal: "Store operations", bu: "LMIT", platform: "SDP (AHS)", stage: "delivery", maturity: "MVP", owner: "Store operations", region: "CIS", value: 98000, dpo: "in progress", legal: "in progress", secu: "approved" },
+  { deal: "Customer 360", bu: "LMRO", platform: "Transversal", stage: "Launch", maturity: "scale & industrialisation", owner: "Customer", region: "MENA", value: 185000, dpo: "approved", legal: "approved", secu: "in progress" },
+  { deal: "Pricing engine", bu: "LMZA", platform: "No platform", stage: "strategy", maturity: "idea", owner: "Pricing", region: "EU", value: 132000, dpo: "not started yet", legal: "not started yet", secu: "in progress" },
+  { deal: "Checkout redesign", bu: "WDFR", platform: "PIDP", stage: "product life", maturity: "run", owner: "Commerce", region: "CIS", value: 265000, dpo: "approved", legal: "approved", secu: "approved" },
+  { deal: "Field sales tablet", bu: "BMIT", platform: "HRDP", stage: "Discovery", maturity: "poc", owner: "Sales", region: "EU", value: 54000, dpo: "in progress", legal: "not started yet", secu: "not started yet" },
+  { deal: "Integration hub", bu: "OMPT", platform: "FPDP", stage: "sunset", maturity: "run", owner: "Integration", region: "MENA", value: 228000, dpo: "approved", legal: "approved", secu: "in progress" },
 ];
 
 const businessUnits = ["LMGR", "LMBR", "LMFR", "LMPL", "LMPT", "BMES", "LMRO", "LMZA", "BCIT", "Todomo", "BMPL", "LMIT", "BMIT", "BMFR", "WDFR", "LMES", "LMUA", "OMBR", "OMPT"];
 const stages = ["strategy", "Discovery", "delivery", "Launch", "product life", "sunset"];
 const maturities = ["idea", "poc", "MVP", "scale & industrialisation", "run"];
 const platforms = ["CCDP", "SCDP", "PDP", "GTDP", "DP4P", "SDP (AHS)", "Transversal", "No platform", "AMS", "PIDP", "HRDP", "FPDP"];
+const governanceStatuses = ["approved", "in progress", "not started yet"];
 const ownerColors = ["#126c83", "#cf5b3c", "#5c7a3e", "#5f6fa8", "#a15c38", "#2f6f64", "#8b5d91"];
 const state = {
   view: "list",
@@ -57,6 +58,9 @@ const elements = {
   platformInput: document.querySelector("#platformInput"),
   stageInput: document.querySelector("#stageInput"),
   maturityInput: document.querySelector("#maturityInput"),
+  dpoInput: document.querySelector("#dpoInput"),
+  legalInput: document.querySelector("#legalInput"),
+  secuInput: document.querySelector("#secuInput"),
   submitUseCaseButton: document.querySelector("#submitUseCaseButton"),
   cancelEditButton: document.querySelector("#cancelEditButton"),
   csvInput: document.querySelector("#csvInput"),
@@ -87,6 +91,17 @@ function optionMarkup(values, label, selectedValue = "") {
 
 function formatValue(value) {
   return new Intl.NumberFormat("ru-RU").format(value);
+}
+
+function normalizeGovernanceStatus(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return governanceStatuses.includes(normalized) ? normalized : "not started yet";
+}
+
+function statusBadge(status) {
+  const normalizedStatus = normalizeGovernanceStatus(status);
+  const className = normalizedStatus.replace(/\s+/g, "-");
+  return `<span class="governance-status status-${className}">${escapeHtml(normalizedStatus)}</span>`;
 }
 
 function escapeHtml(value) {
@@ -122,6 +137,7 @@ function refreshFilterOptions() {
   refreshStageInputOptions();
   refreshMaturityInputOptions();
   refreshPlatformInputOptions();
+  refreshGovernanceInputOptions();
 }
 
 function refreshBuInputOptions(selectedValue = "") {
@@ -138,6 +154,12 @@ function refreshStageInputOptions(selectedValue = "") {
 
 function refreshMaturityInputOptions(selectedValue = "") {
   fillSelect(elements.maturityInput, maturities, "Select maturity", selectedValue);
+}
+
+function refreshGovernanceInputOptions(selectedValues = {}) {
+  fillSelect(elements.dpoInput, governanceStatuses, "Select DPO status", selectedValues.dpo || "");
+  fillSelect(elements.legalInput, governanceStatuses, "Select legal status", selectedValues.legal || "");
+  fillSelect(elements.secuInput, governanceStatuses, "Select secu status", selectedValues.secu || "");
 }
 
 function getFilteredDeals() {
@@ -204,7 +226,7 @@ function renderTable(filteredDeals) {
       const editRow = isEditing
         ? `
         <tr class="inline-edit-row">
-          <td colspan="9">
+          <td colspan="12">
             <form class="inline-edit-form" data-inline-edit-index="${dealIndex}">
               <label>
                 <span>Use Case</span>
@@ -238,6 +260,18 @@ function renderTable(filteredDeals) {
                 <span>Value</span>
                 <input name="value" type="number" min="0" inputmode="numeric" required value="${escapeHtml(deal.value)}" />
               </label>
+              <label>
+                <span>DPO</span>
+                <select name="dpo" required>${optionMarkup(governanceStatuses, "Select DPO status", deal.dpo)}</select>
+              </label>
+              <label>
+                <span>Legal</span>
+                <select name="legal" required>${optionMarkup(governanceStatuses, "Select legal status", deal.legal)}</select>
+              </label>
+              <label>
+                <span>Secu</span>
+                <select name="secu" required>${optionMarkup(governanceStatuses, "Select secu status", deal.secu)}</select>
+              </label>
               <button class="primary-button" type="submit">Save</button>
               <button class="ghost-button" type="button" data-cancel-inline-edit>Cancel</button>
             </form>
@@ -256,6 +290,9 @@ function renderTable(filteredDeals) {
           <td>${escapeHtml(deal.owner)}</td>
           <td>${escapeHtml(deal.region)}</td>
           <td class="numeric">${formatValue(deal.value)}</td>
+          <td>${statusBadge(deal.dpo)}</td>
+          <td>${statusBadge(deal.legal)}</td>
+          <td>${statusBadge(deal.secu)}</td>
           <td>
             <button class="action-button icon-action edit-action" type="button" data-edit-index="${dealIndex}" aria-label="Edit ${escapeHtml(deal.deal)}" title="Edit">
               <svg class="icon-svg pencil-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
@@ -474,6 +511,9 @@ function normalizeDeal(rawDeal) {
     owner: String(rawDeal.owner || rawDeal.domain || rawDeal.owning_domain || "").trim(),
     region: String(rawDeal.region || "").trim(),
     value: Number(String(rawDeal.value || "").replace(/[^\d.-]/g, "")),
+    dpo: normalizeGovernanceStatus(rawDeal.dpo),
+    legal: normalizeGovernanceStatus(rawDeal.legal),
+    secu: normalizeGovernanceStatus(rawDeal.secu || rawDeal.security),
   };
 
   if (
@@ -601,6 +641,10 @@ function parseCsv(text) {
     stage: "stage",
     maturite: "maturity",
     maturité: "maturity",
+    dpo: "dpo",
+    legal: "legal",
+    secu: "secu",
+    security: "secu",
   };
 
   return rows

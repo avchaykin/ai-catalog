@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI catalog</title>
-    <link rel="stylesheet" href="./styles.css?v=icons-20260702" />
+    <link rel="stylesheet" href="./styles.css?v=governance-20260702" />
   </head>
   <body>
     <main class="app-shell">
@@ -198,6 +198,36 @@
             <input id="valueInput" name="value" type="number" min="0" inputmode="numeric" required placeholder="100000" />
           </label>
 
+          <label>
+            <span>DPO</span>
+            <select id="dpoInput" name="dpo" required>
+              <option value="">Select DPO status</option>
+              <option value="approved">approved</option>
+              <option value="in progress">in progress</option>
+              <option value="not started yet">not started yet</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Legal</span>
+            <select id="legalInput" name="legal" required>
+              <option value="">Select legal status</option>
+              <option value="approved">approved</option>
+              <option value="in progress">in progress</option>
+              <option value="not started yet">not started yet</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Secu</span>
+            <select id="secuInput" name="secu" required>
+              <option value="">Select secu status</option>
+              <option value="approved">approved</option>
+              <option value="in progress">in progress</option>
+              <option value="not started yet">not started yet</option>
+            </select>
+          </label>
+
           <button id="submitUseCaseButton" class="primary-button" type="submit">Save use case</button>
           <button id="cancelEditButton" class="ghost-button" type="button">Cancel</button>
         </form>
@@ -219,6 +249,9 @@
                   <th><button class="sort-button" type="button" data-sort-key="owner">Owner domain</button></th>
                   <th><button class="sort-button" type="button" data-sort-key="region">Region</button></th>
                   <th class="numeric"><button class="sort-button numeric-sort" type="button" data-sort-key="value">Value</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="dpo">DPO</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="legal">Legal</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="secu">Secu</button></th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -256,6 +289,6 @@
       </section>
     </main>
 
-    <script src="./script.js?v=icons-20260702"></script>
+    <script src="./script.js?v=governance-20260702"></script>
   </body>
 </html>
