@@ -156,9 +156,18 @@ h1 {
 
 .initiative-form {
   display: grid;
-  grid-template-columns: minmax(220px, 1.4fr) repeat(7, minmax(110px, 1fr)) auto auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   align-items: end;
+}
+
+.initiative-form label:first-child {
+  grid-column: span 2;
+}
+
+.initiative-form .primary-button,
+.initiative-form .ghost-button {
+  width: 100%;
 }
 
 .entry-options {
@@ -182,6 +191,7 @@ label span {
 select,
 input {
   width: 100%;
+  min-width: 0;
   min-height: 40px;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -213,6 +223,7 @@ input:focus {
 .ghost-button,
 .primary-button,
 .file-button {
+  min-width: 0;
   cursor: pointer;
   color: var(--text);
 }
@@ -663,6 +674,10 @@ tr:last-child td {
   .field-filters,
   .initiative-form {
     grid-template-columns: 1fr;
+  }
+
+  .initiative-form label:first-child {
+    grid-column: 1;
   }
 
   .entry-options {
