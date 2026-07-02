@@ -20,7 +20,7 @@ const platforms = ["CCDP", "SCDP", "PDP", "GTDP", "DP4P", "SDP (AHS)", "Transver
 const ownerColors = ["#126c83", "#cf5b3c", "#5c7a3e", "#5f6fa8", "#a15c38", "#2f6f64", "#8b5d91"];
 const state = {
   view: "list",
-  editingIndex: null,
+  editingRowIndex: null,
   sortKey: "",
   sortDirection: "asc",
 };
@@ -73,6 +73,16 @@ function fillSelect(select, values, label = "All", selectedValue = "") {
     ...values.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`),
   ].join("");
   select.value = selectedValue;
+}
+
+function optionMarkup(values, label, selectedValue = "") {
+  return [
+    `<option value="">${label}</option>`,
+    ...values.map(
+      (value) =>
+        `<option value="${escapeHtml(value)}"${value === selectedValue ? " selected" : ""}>${escapeHtml(value)}</option>`,
+    ),
+  ].join("");
 }
 
 function formatValue(value) {
@@ -188,9 +198,56 @@ function renderTable(filteredDeals) {
 
   updateSortButtons();
   elements.tableBody.innerHTML = sortedDeals
-    .map(
-      (deal) => `
-        <tr>
+    .map((deal) => {
+      const dealIndex = deals.indexOf(deal);
+      const isEditing = state.editingRowIndex === dealIndex;
+      const editRow = isEditing
+        ? `
+        <tr class="inline-edit-row">
+          <td colspan="9">
+            <form class="inline-edit-form" data-inline-edit-index="${dealIndex}">
+              <label>
+                <span>Use Case</span>
+                <input name="deal" type="text" required value="${escapeHtml(deal.deal)}" />
+              </label>
+              <label>
+                <span>BU</span>
+                <select name="bu" required>${optionMarkup(businessUnits, "Select BU", deal.bu)}</select>
+              </label>
+              <label>
+                <span>Owning platform</span>
+                <select name="platform" required>${optionMarkup(platforms, "Select platform", deal.platform)}</select>
+              </label>
+              <label>
+                <span>Lifecycle</span>
+                <select name="stage" required>${optionMarkup(stages, "Select lifecycle", deal.stage)}</select>
+              </label>
+              <label>
+                <span>Maturity</span>
+                <select name="maturity" required>${optionMarkup(maturities, "Select maturity", deal.maturity)}</select>
+              </label>
+              <label>
+                <span>Owner domain</span>
+                <input name="owner" type="text" required value="${escapeHtml(deal.owner)}" />
+              </label>
+              <label>
+                <span>Region</span>
+                <input name="region" type="text" required value="${escapeHtml(deal.region)}" />
+              </label>
+              <label>
+                <span>Value</span>
+                <input name="value" type="number" min="0" inputmode="numeric" required value="${escapeHtml(deal.value)}" />
+              </label>
+              <button class="primary-button" type="submit">Save</button>
+              <button class="ghost-button" type="button" data-cancel-inline-edit>Cancel</button>
+            </form>
+          </td>
+        </tr>
+      `
+        : "";
+
+      return `
+        <tr class="${isEditing ? "editing" : ""}">
           <td>${escapeHtml(deal.deal)}</td>
           <td>${escapeHtml(deal.bu)}</td>
           <td>${escapeHtml(deal.platform)}</td>
@@ -199,10 +256,13 @@ function renderTable(filteredDeals) {
           <td>${escapeHtml(deal.owner)}</td>
           <td>${escapeHtml(deal.region)}</td>
           <td class="numeric">${formatValue(deal.value)}</td>
-          <td><button class="action-button" type="button" data-edit-index="${deals.indexOf(deal)}">Edit</button></td>
+          <td>
+            <button class="action-button icon-action edit-action" type="button" data-edit-index="${dealIndex}" aria-label="Edit ${escapeHtml(deal.deal)}" title="Edit"></button>
+          </td>
         </tr>
-      `,
-    )
+        ${editRow}
+      `;
+    })
     .join("");
 }
 
@@ -376,6 +436,7 @@ function resetFilters() {
   });
   state.sortKey = "";
   state.sortDirection = "asc";
+  state.editingRowIndex = null;
   render();
 }
 
@@ -455,7 +516,7 @@ function addDeals(newDeals) {
 }
 
 function showManualForm() {
-  state.editingIndex = null;
+  state.editingRowIndex = null;
   elements.initiativeForm.classList.remove("hidden");
   elements.initiativeForm.reset();
   elements.submitUseCaseButton.textContent = "Save use case";
@@ -464,36 +525,16 @@ function showManualForm() {
 }
 
 function hideEntryForm() {
-  state.editingIndex = null;
   elements.initiativeForm.classList.add("hidden");
   elements.initiativeForm.reset();
   elements.submitUseCaseButton.textContent = "Save use case";
 }
 
-function populateForm(deal) {
-  elements.initiativeForm.elements.deal.value = deal.deal;
-  refreshBuInputOptions(deal.bu);
-  refreshPlatformInputOptions(deal.platform);
-  refreshStageInputOptions(deal.stage);
-  refreshMaturityInputOptions(deal.maturity);
-  elements.initiativeForm.elements.owner.value = deal.owner;
-  elements.initiativeForm.elements.region.value = deal.region;
-  elements.initiativeForm.elements.value.value = deal.value;
-}
-
 function startEdit(index) {
-  const deal = deals[index];
-
-  if (!deal) {
-    return;
-  }
-
-  state.editingIndex = index;
-  elements.initiativeForm.classList.remove("hidden");
-  elements.submitUseCaseButton.textContent = "Update use case";
-  elements.importStatus.textContent = "Editing selected use case.";
-  populateForm(deal);
-  elements.initiativeForm.scrollIntoView({ behavior: "smooth", block: "center" });
+  state.editingRowIndex = state.editingRowIndex === index ? null : index;
+  elements.initiativeForm.classList.add("hidden");
+  elements.importStatus.textContent = "";
+  setView("list");
 }
 
 function parseCsvLine(line) {
@@ -580,18 +621,28 @@ function handleFormSubmit(event) {
     return;
   }
 
-  if (state.editingIndex !== null) {
-    deals[state.editingIndex] = newDeal;
-    state.editingIndex = null;
-    refreshFilterOptions();
-    render();
-    elements.importStatus.textContent = "Use case updated.";
-  } else {
-    addDeals([newDeal]);
-  }
+  addDeals([newDeal]);
 
   elements.initiativeForm.reset();
   elements.initiativeForm.classList.add("hidden");
+}
+
+function handleInlineEditSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const index = Number(form.dataset.inlineEditIndex);
+  const updatedDeal = normalizeDeal(Object.fromEntries(new FormData(form).entries()));
+
+  if (!updatedDeal || !deals[index]) {
+    elements.importStatus.textContent = "Fill in all fields before updating a use case.";
+    return;
+  }
+
+  deals[index] = updatedDeal;
+  state.editingRowIndex = null;
+  refreshFilterOptions();
+  render();
+  elements.importStatus.textContent = "Use case updated.";
 }
 
 function handleCsvImport(event) {
@@ -636,9 +687,21 @@ function init() {
   elements.csvInput.addEventListener("change", handleCsvImport);
   elements.tableBody.addEventListener("click", (event) => {
     const editButton = event.target.closest("[data-edit-index]");
+    const cancelButton = event.target.closest("[data-cancel-inline-edit]");
+
+    if (cancelButton) {
+      state.editingRowIndex = null;
+      render();
+      return;
+    }
 
     if (editButton) {
       startEdit(Number(editButton.dataset.editIndex));
+    }
+  });
+  elements.tableBody.addEventListener("submit", (event) => {
+    if (event.target.matches(".inline-edit-form")) {
+      handleInlineEditSubmit(event);
     }
   });
   elements.maturityMap.addEventListener("click", (event) => {

@@ -322,6 +322,9 @@ input:focus {
 }
 
 .action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 32px;
   border-radius: 6px;
   background: var(--surface-2);
@@ -329,6 +332,32 @@ input:focus {
   cursor: pointer;
   padding: 0 10px;
   font-weight: 800;
+}
+
+.icon-action {
+  width: 32px;
+  min-width: 32px;
+  padding: 0;
+}
+
+.edit-action::before {
+  content: "";
+  width: 14px;
+  height: 4px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: rotate(-45deg);
+}
+
+.edit-action::after {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: -2px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid currentColor;
+  transform: rotate(-45deg);
 }
 
 .content-area {
@@ -417,6 +446,36 @@ td {
 
 tr:last-child td {
   border-bottom: 0;
+}
+
+tr.editing td {
+  border-bottom: 0;
+  background: #fbfdfe;
+}
+
+.inline-edit-row td {
+  padding: 0 14px 16px;
+  background: #fbfdfe;
+}
+
+.inline-edit-form {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.35fr) repeat(3, minmax(120px, 1fr));
+  gap: 12px;
+  min-width: 1060px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+
+.inline-edit-form label {
+  min-width: 0;
+}
+
+.inline-edit-form .primary-button,
+.inline-edit-form .ghost-button {
+  width: 100%;
 }
 
 .numeric {
