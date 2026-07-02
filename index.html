@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI catalog</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI catalog</p>
+          <h1>AI catalog</h1>
+          <p class="intro">
+            A searchable catalogue of AI, ML, and agentic use cases across business units, platforms, lifecycle, maturity, and expected value.
+          </p>
+        </div>
+
+        <div class="summary" aria-label="Summary metrics">
+          <div>
+            <span id="totalValue">0</span>
+            <small>value</small>
+          </div>
+          <div>
+            <span id="totalCount">0</span>
+            <small>records</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="Filters">
+        <label>
+          <span>BU</span>
+          <select id="buFilter"></select>
+        </label>
+
+        <label>
+          <span>Owning platform</span>
+          <select id="platformFilter"></select>
+        </label>
+
+        <label class="search-field">
+          <span>Search all fields</span>
+          <input id="searchInput" type="search" placeholder="Use case, owner domain, lifecycle, maturity, value..." />
+        </label>
+
+        <div class="view-toggle" role="tablist" aria-label="View">
+          <button class="active" id="listViewButton" type="button" aria-selected="true">List</button>
+          <button id="chartViewButton" type="button" aria-selected="false">Chart</button>
+          <button id="mapViewButton" type="button" aria-selected="false">Map</button>
+        </div>
+      </section>
+
+      <section class="field-filters" aria-label="Field filters">
+        <label>
+          <span>Lifecycle</span>
+          <select id="stageFilter"></select>
+        </label>
+
+        <label>
+          <span>Maturity</span>
+          <select id="maturityFilter"></select>
+        </label>
+
+        <label>
+          <span>Owner domain</span>
+          <select id="ownerFilter"></select>
+        </label>
+
+        <label>
+          <span>Region</span>
+          <select id="regionFilter"></select>
+        </label>
+
+        <label>
+          <span>Value from</span>
+          <input id="minValueFilter" type="number" min="0" inputmode="numeric" placeholder="0" />
+        </label>
+
+        <label>
+          <span>Value to</span>
+          <input id="maxValueFilter" type="number" min="0" inputmode="numeric" placeholder="∞" />
+        </label>
+
+        <button id="resetButton" class="ghost-button" type="button">Reset</button>
+      </section>
+
+      <section class="data-entry" aria-label="Add initiatives">
+        <div class="section-head">
+          <div>
+            <h2>Use case management</h2>
+            <p>Add one use case manually, import a CSV file, or edit existing initiatives from the table.</p>
+          </div>
+          <button id="addUseCaseButton" class="primary-button" type="button">Add use case</button>
+        </div>
+
+        <div id="entryOptions" class="entry-options hidden" aria-label="Add use case options">
+          <button id="manualEntryButton" class="ghost-button" type="button">Manual entry</button>
+          <label class="file-button">
+            <span>Import CSV</span>
+            <input id="csvInput" type="file" accept=".csv,text/csv" />
+          </label>
+        </div>
+
+        <form id="initiativeForm" class="initiative-form hidden">
+          <label>
+            <span>Use Case</span>
+            <input id="dealInput" name="deal" type="text" required placeholder="AI assistant for customer support" />
+          </label>
+
+          <label>
+            <span>BU</span>
+            <select id="buInput" name="bu" required>
+              <option value="">Select BU</option>
+              <option value="LMGR">LMGR</option>
+              <option value="LMBR">LMBR</option>
+              <option value="LMFR">LMFR</option>
+              <option value="LMPL">LMPL</option>
+              <option value="LMPT">LMPT</option>
+              <option value="BMES">BMES</option>
+              <option value="LMRO">LMRO</option>
+              <option value="LMZA">LMZA</option>
+              <option value="BCIT">BCIT</option>
+              <option value="Todomo">Todomo</option>
+              <option value="BMPL">BMPL</option>
+              <option value="LMIT">LMIT</option>
+              <option value="BMIT">BMIT</option>
+              <option value="BMFR">BMFR</option>
+              <option value="WDFR">WDFR</option>
+              <option value="LMES">LMES</option>
+              <option value="LMUA">LMUA</option>
+              <option value="OMBR">OMBR</option>
+              <option value="OMPT">OMPT</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Owning platform</span>
+            <select id="platformInput" name="platform" required>
+              <option value="">Select platform</option>
+              <option value="CCDP">CCDP</option>
+              <option value="SCDP">SCDP</option>
+              <option value="PDP">PDP</option>
+              <option value="GTDP">GTDP</option>
+              <option value="DP4P">DP4P</option>
+              <option value="SDP (AHS)">SDP (AHS)</option>
+              <option value="Transversal">Transversal</option>
+              <option value="No platform">No platform</option>
+              <option value="AMS">AMS</option>
+              <option value="PIDP">PIDP</option>
+              <option value="HRDP">HRDP</option>
+              <option value="FPDP">FPDP</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Lifecycle</span>
+            <select id="stageInput" name="stage" required>
+              <option value="">Select lifecycle</option>
+              <option value="strategy">strategy</option>
+              <option value="Discovery">Discovery</option>
+              <option value="delivery">delivery</option>
+              <option value="Launch">Launch</option>
+              <option value="product life">product life</option>
+              <option value="sunset">sunset</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Maturity</span>
+            <select id="maturityInput" name="maturity" required>
+              <option value="">Select maturity</option>
+              <option value="idea">idea</option>
+              <option value="poc">poc</option>
+              <option value="MVP">MVP</option>
+              <option value="scale & industrialisation">scale & industrialisation</option>
+              <option value="run">run</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Owner domain</span>
+            <input id="ownerInput" name="owner" type="text" required placeholder="Data / Commerce / Supply..." />
+          </label>
+
+          <label>
+            <span>Region</span>
+            <input id="regionInput" name="region" type="text" required placeholder="EU" />
+          </label>
+
+          <label>
+            <span>Value</span>
+            <input id="valueInput" name="value" type="number" min="0" inputmode="numeric" required placeholder="100000" />
+          </label>
+
+          <button id="submitUseCaseButton" class="primary-button" type="submit">Save use case</button>
+          <button id="cancelEditButton" class="ghost-button" type="button">Cancel</button>
+        </form>
+
+        <p id="importStatus" class="status-message" aria-live="polite"></p>
+      </section>
+
+      <section class="content-area">
+        <div id="listView" class="data-view">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><button class="sort-button" type="button" data-sort-key="deal">Use Case</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="bu">BU</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="platform">Owning platform</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="stage">Lifecycle</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="maturity">Maturity</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="owner">Owner domain</button></th>
+                  <th><button class="sort-button" type="button" data-sort-key="region">Region</button></th>
+                  <th class="numeric"><button class="sort-button numeric-sort" type="button" data-sort-key="value">Value</button></th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="chartView" class="data-view hidden">
+          <div class="chart-head">
+            <div>
+              <h2>Value by Lifecycle</h2>
+              <p>The chart reflects all selected filters.</p>
+            </div>
+            <span id="chartHint"></span>
+          </div>
+          <div id="chart" class="chart" aria-label="Value by lifecycle chart"></div>
+        </div>
+
+        <div id="mapView" class="data-view hidden">
+          <div class="chart-head">
+            <div>
+              <h2>AI Maturity Map</h2>
+              <p>Value by maturite. Color shows owner domain, number shows BU count, white outline means no value.</p>
+            </div>
+            <span id="mapHint"></span>
+          </div>
+          <div id="maturityMap" class="maturity-map" aria-label="AI maturity map"></div>
+        </div>
+
+        <div id="emptyState" class="empty hidden">
+          <strong>No results found</strong>
+          <span>Try changing the filters or clearing the search.</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
