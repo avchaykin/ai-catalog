@@ -277,32 +277,66 @@ input:focus {
   color: #fff;
 }
 
-.icon-button {
+.csv-button {
   position: relative;
-  width: 40px;
-  min-width: 40px;
+  width: 46px;
+  min-width: 46px;
   padding: 0;
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
 }
 
-.icon-button::before {
+.csv-button:hover,
+.action-button:hover {
+  background: #f7f7f7;
+}
+
+.csv-file-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 27px;
+  border: 3px solid currentColor;
+  border-radius: 4px;
+  background: #fff;
+  line-height: 1;
+}
+
+.csv-file-icon::before {
   content: "";
-  width: 15px;
-  height: 16px;
-  border: 2px solid currentColor;
-  border-radius: 3px;
-  border-top-width: 5px;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  background:
+    linear-gradient(225deg, currentColor 0 50%, #fff 50% 100%);
+  border-left: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  border-radius: 0 0 0 3px;
 }
 
-.icon-button::after {
+.csv-file-icon::after {
   content: "";
   position: absolute;
   left: 50%;
-  top: 11px;
+  bottom: 4px;
   width: 7px;
   height: 7px;
-  border-left: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: translateX(-50%) rotate(-45deg);
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.csv-file-icon span {
+  align-self: start;
+  margin-top: 6px;
+  color: currentColor;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 0;
 }
 
 .sr-only {
@@ -327,14 +361,16 @@ input:focus {
   justify-content: center;
   min-height: 32px;
   border-radius: 6px;
-  background: var(--surface-2);
-  color: var(--text);
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
   cursor: pointer;
   padding: 0 10px;
   font-weight: 800;
 }
 
 .icon-action {
+  position: relative;
   width: 32px;
   min-width: 32px;
   padding: 0;
@@ -342,22 +378,23 @@ input:focus {
 
 .edit-action::before {
   content: "";
-  width: 14px;
-  height: 4px;
-  border-radius: 999px;
+  position: absolute;
+  width: 18px;
+  height: 7px;
+  border-radius: 1px;
   background: currentColor;
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(1px, -1px);
 }
 
 .edit-action::after {
   content: "";
+  position: absolute;
   width: 0;
   height: 0;
-  margin-left: -2px;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 6px solid currentColor;
-  transform: rotate(-45deg);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 8px solid currentColor;
+  transform: rotate(-45deg) translate(-12px, -6px);
 }
 
 .content-area {
