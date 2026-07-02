@@ -257,7 +257,12 @@ function renderTable(filteredDeals) {
           <td>${escapeHtml(deal.region)}</td>
           <td class="numeric">${formatValue(deal.value)}</td>
           <td>
-            <button class="action-button icon-action edit-action" type="button" data-edit-index="${dealIndex}" aria-label="Edit ${escapeHtml(deal.deal)}" title="Edit"></button>
+            <button class="action-button icon-action edit-action" type="button" data-edit-index="${dealIndex}" aria-label="Edit ${escapeHtml(deal.deal)}" title="Edit">
+              <svg class="icon-svg pencil-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                <path d="M7 22.5 6 27l4.5-1 14-14-3.5-3.5z" />
+                <path d="m21 8.5 1.4-1.4a2 2 0 0 1 2.8 0l.7.7a2 2 0 0 1 0 2.8L24.5 12z" />
+              </svg>
+            </button>
           </td>
         </tr>
         ${editRow}

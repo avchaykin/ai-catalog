@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI catalog</title>
-    <link rel="stylesheet" href="./styles.css?v=19fe16a" />
+    <link rel="stylesheet" href="./styles.css?v=icons-20260702" />
   </head>
   <body>
     <main class="app-shell">
@@ -95,9 +95,12 @@
           <div class="entry-actions">
             <button id="addUseCaseButton" class="primary-button" type="button">Add use case</button>
             <label class="file-button csv-button" aria-label="Import CSV" title="Import CSV">
-              <span class="csv-file-icon" aria-hidden="true">
-                <span>CSV</span>
-              </span>
+              <svg class="icon-svg csv-upload-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                <path class="icon-paper" d="M8 4h11l5 5v19H8z" />
+                <path class="icon-fold" d="M19 4v5h5" />
+                <path class="icon-arrow" d="M16 12v9m-4-4 4 4 4-4" />
+                <text x="16" y="26" text-anchor="middle">CSV</text>
+              </svg>
               <span class="sr-only">Import CSV</span>
               <input id="csvInput" type="file" accept=".csv,text/csv" />
             </label>
@@ -253,6 +256,6 @@
       </section>
     </main>
 
-    <script src="./script.js?v=84cdb40"></script>
+    <script src="./script.js?v=icons-20260702"></script>
   </body>
 </html>

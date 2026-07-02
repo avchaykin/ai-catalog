@@ -273,68 +273,56 @@ input:focus {
   pointer-events: none;
 }
 
-.file-button span {
+.file-button span:not(.sr-only) {
   color: #fff;
 }
 
 .csv-button {
   position: relative;
-  width: 46px;
-  min-width: 46px;
+  width: 42px;
+  min-width: 42px;
   padding: 0;
-  background: #fff;
+  background: transparent;
   color: #000;
-  border: 2px solid #000;
+  border: 0;
 }
 
 .csv-button:hover,
 .action-button:hover {
-  background: #f7f7f7;
+  background: rgba(0, 0, 0, 0.05);
 }
 
-.csv-file-icon {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 23px;
-  height: 27px;
-  border: 3px solid currentColor;
-  border-radius: 4px;
-  background: #fff;
-  line-height: 1;
+.icon-svg {
+  display: block;
+  color: #050505;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
 }
 
-.csv-file-icon::before {
-  content: "";
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 9px;
-  height: 9px;
-  background:
-    linear-gradient(225deg, currentColor 0 50%, #fff 50% 100%);
-  border-left: 3px solid currentColor;
-  border-bottom: 3px solid currentColor;
-  border-radius: 0 0 0 3px;
+.csv-upload-icon {
+  width: 31px;
+  height: 31px;
 }
 
-.csv-file-icon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 4px;
-  width: 7px;
-  height: 7px;
-  border-right: 3px solid currentColor;
-  border-bottom: 3px solid currentColor;
-  transform: translateX(-50%) rotate(45deg);
+.csv-upload-icon .icon-paper {
+  fill: #fff;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
 }
 
-.csv-file-icon span {
-  align-self: start;
-  margin-top: 6px;
-  color: currentColor;
-  font-size: 7px;
+.csv-upload-icon .icon-fold,
+.csv-upload-icon .icon-arrow {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.csv-upload-icon text {
+  fill: currentColor;
+  font-size: 5px;
   font-weight: 900;
   letter-spacing: 0;
 }
@@ -361,40 +349,28 @@ input:focus {
   justify-content: center;
   min-height: 32px;
   border-radius: 6px;
-  background: #fff;
+  background: transparent;
   color: #000;
-  border: 2px solid #000;
+  border: 0;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0;
   font-weight: 800;
 }
 
 .icon-action {
   position: relative;
-  width: 32px;
-  min-width: 32px;
+  width: 34px;
+  min-width: 34px;
   padding: 0;
 }
 
-.edit-action::before {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 7px;
-  border-radius: 1px;
-  background: currentColor;
-  transform: rotate(-45deg) translate(1px, -1px);
+.pencil-icon {
+  width: 26px;
+  height: 26px;
 }
 
-.edit-action::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 8px solid currentColor;
-  transform: rotate(-45deg) translate(-12px, -6px);
+.pencil-icon path {
+  fill: currentColor;
 }
 
 .content-area {
