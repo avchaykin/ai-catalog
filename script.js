@@ -52,8 +52,6 @@ const elements = {
   mapView: document.querySelector("#mapView"),
   emptyState: document.querySelector("#emptyState"),
   addUseCaseButton: document.querySelector("#addUseCaseButton"),
-  entryOptions: document.querySelector("#entryOptions"),
-  manualEntryButton: document.querySelector("#manualEntryButton"),
   initiativeForm: document.querySelector("#initiativeForm"),
   buInput: document.querySelector("#buInput"),
   platformInput: document.querySelector("#platformInput"),
@@ -456,17 +454,8 @@ function addDeals(newDeals) {
   elements.importStatus.textContent = `${formatValue(newDeals.length)} use case${newDeals.length === 1 ? "" : "s"} added.`;
 }
 
-function showEntryOptions() {
-  elements.entryOptions.classList.toggle("hidden");
-  elements.initiativeForm.classList.add("hidden");
-  state.editingIndex = null;
-  elements.initiativeForm.reset();
-  elements.submitUseCaseButton.textContent = "Save use case";
-}
-
 function showManualForm() {
   state.editingIndex = null;
-  elements.entryOptions.classList.add("hidden");
   elements.initiativeForm.classList.remove("hidden");
   elements.initiativeForm.reset();
   elements.submitUseCaseButton.textContent = "Save use case";
@@ -477,7 +466,6 @@ function showManualForm() {
 function hideEntryForm() {
   state.editingIndex = null;
   elements.initiativeForm.classList.add("hidden");
-  elements.entryOptions.classList.add("hidden");
   elements.initiativeForm.reset();
   elements.submitUseCaseButton.textContent = "Save use case";
 }
@@ -501,7 +489,6 @@ function startEdit(index) {
   }
 
   state.editingIndex = index;
-  elements.entryOptions.classList.add("hidden");
   elements.initiativeForm.classList.remove("hidden");
   elements.submitUseCaseButton.textContent = "Update use case";
   elements.importStatus.textContent = "Editing selected use case.";
@@ -643,8 +630,7 @@ function init() {
   elements.mapViewButton.addEventListener("click", () => setView("map"));
   elements.resetButton.addEventListener("click", resetFilters);
   elements.tableHead.addEventListener("click", handleSortClick);
-  elements.addUseCaseButton.addEventListener("click", showEntryOptions);
-  elements.manualEntryButton.addEventListener("click", showManualForm);
+  elements.addUseCaseButton.addEventListener("click", showManualForm);
   elements.cancelEditButton.addEventListener("click", hideEntryForm);
   elements.initiativeForm.addEventListener("submit", handleFormSubmit);
   elements.csvInput.addEventListener("change", handleCsvImport);

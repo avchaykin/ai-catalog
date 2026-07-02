@@ -92,15 +92,13 @@
             <h2>Use case management</h2>
             <p>Add one use case manually, import a CSV file, or edit existing initiatives from the table.</p>
           </div>
-          <button id="addUseCaseButton" class="primary-button" type="button">Add use case</button>
-        </div>
-
-        <div id="entryOptions" class="entry-options hidden" aria-label="Add use case options">
-          <button id="manualEntryButton" class="ghost-button" type="button">Manual entry</button>
-          <label class="file-button">
-            <span>Import CSV</span>
-            <input id="csvInput" type="file" accept=".csv,text/csv" />
-          </label>
+          <div class="entry-actions">
+            <button id="addUseCaseButton" class="primary-button" type="button">Add use case</button>
+            <label class="file-button icon-button" aria-label="Import CSV" title="Import CSV">
+              <span class="sr-only">Import CSV</span>
+              <input id="csvInput" type="file" accept=".csv,text/csv" />
+            </label>
+          </div>
         </div>
 
         <form id="initiativeForm" class="initiative-form hidden">

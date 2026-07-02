@@ -142,6 +142,13 @@ h1 {
   gap: 16px;
 }
 
+.entry-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
 .section-head h2 {
   font-size: 18px;
 }
@@ -168,12 +175,6 @@ h1 {
 .initiative-form .primary-button,
 .initiative-form .ghost-button {
   width: 100%;
-}
-
-.entry-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 label {
@@ -274,6 +275,44 @@ input:focus {
 
 .file-button span {
   color: #fff;
+}
+
+.icon-button {
+  position: relative;
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+}
+
+.icon-button::before {
+  content: "";
+  width: 15px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  border-top-width: 5px;
+}
+
+.icon-button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .status-message {
@@ -649,13 +688,20 @@ tr:last-child td {
   .search-field,
   .view-toggle,
   .ghost-button,
-  .primary-button,
-  .file-button {
+  .primary-button {
     grid-column: 1 / -1;
   }
 
   .section-head {
     flex-direction: column;
+  }
+
+  .entry-actions {
+    width: 100%;
+  }
+
+  .entry-actions .primary-button {
+    flex: 1;
   }
 
   .view-toggle {
@@ -678,11 +724,6 @@ tr:last-child td {
 
   .initiative-form label:first-child {
     grid-column: 1;
-  }
-
-  .entry-options {
-    display: grid;
-    grid-template-columns: 1fr;
   }
 
   .bar-row {
